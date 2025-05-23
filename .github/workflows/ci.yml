@@ -11,15 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4 # Recommended to update to v4
+        uses: actions/checkout@v3
 
-      - name: Set up Python 3.11 # Update description
-        uses: actions/setup-python@v5 # Recommended to update to v5
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-          cache: 'pip' # Highly recommended for faster builds
 
       - name: Install dependencies
-        run: |
+        run: 
           python --version
           pip install -r requirements.txt
