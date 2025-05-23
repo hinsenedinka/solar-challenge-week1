@@ -1,79 +1,25 @@
 name: CI
 
-
-
 on:
-
   push:
-
     branches: [main, setup-task]
-
   pull_request:
-
     branches: [main]
 
-
-
 jobs:
-
   install-dependencies:
-
     runs-on: ubuntu-latest
-
     steps:
-
       - name: Checkout code
+        uses: actions/checkout@v3
 
-        uses: actions/checkout@v4 # Recommended update
-
-
-
-      - name: Set up Python 3.11
-
-        uses: actions/setup-python@v5 # Recommended update
-
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-
           python-version: '3.11'
 
-          cache: 'pip' # Essential for caching dependencies and often helps with reliability
+      - name: Install dependencies
+        run: 
+          python --version
+          pip install -r requirements.txt
 
-
-
-      # --- START DEBUGGING BLOCK ---
-
-      - name: Debug: List files and verify requirements.txt
-
-        run: |
-
-          echo "Current Working Directory:"
-
-          pwd
-
-          echo "Files in current directory:"
-
-          ls -F
-
-          echo "Content of requirements.txt (if found):"
-
-          if [ -f requirements.txt ]; then
-
-            cat requirements.txt
-
-          else
-
-            echo "ERROR: requirements.txt not found!"
-
-            exit 1 # Fail fast if the file is missing
-
-          fi
-
-
-
-      - name: Install dependencies (VERBOSE)
-
-        run: |
-
-          echo "Installing dependencies with pip --verbose..."
-
-          pip install -r requirements.txt --verbose # This is key for detailed errors
